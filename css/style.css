@@ -579,10 +579,10 @@ h1,h2,h3{font-weight:400;letter-spacing:.01em}
 .apwrap .wfly{offset-path:none;top:auto;bottom:66%;left:0;z-index:7;animation:flyx 26s linear -6s infinite}
 @keyframes flyx{from{left:-360px}to{left:104%}}
 .wplane{animation:planebob 4.200s ease-in-out infinite}
-@keyframes planebob{0%,100%{transform:translateY(-12px) rotate(-4deg)}50%{transform:translateY(12px) rotate(4deg)}}
-.wl-in{z-index:5}
+@keyframes planebob{0%,100%{transform:translateY(-6px) rotate(-3deg)}50%{transform:translateY(6px) rotate(3deg)}}
+.wl-in{z-index:auto}.wl-title{position:relative;z-index:5}.kiosk{z-index:8}
 .welcome{padding-bottom:14vw}
-.apwrap .wfly{bottom:70%}
+.apwrap .wfly{bottom:calc(93% + 12px)}
 .wplane{width:clamp(150px,12.500vw,250px)}
 .banner{font-size:clamp(.95rem,1.100vw,1.400rem)}
 .welcome{min-height:calc(100vh - 72px)}.stophead{top:72px}.cols .side,.logcols .side{top:136px}
@@ -615,6 +615,17 @@ h1,h2,h3{font-weight:400;letter-spacing:.01em}
 .bank.pics.tight .bonechip .bimg{height:74px}
 .bank.pics.tight .bonechip span{font-size:.88rem}
 .hbtn .hav{width:30px;height:30px;object-fit:contain;margin:-7px 0 -7px -5px;flex:none}
+
+/* ---- flight lane: the plane cruises just above the control tower, in front of the text and behind the kiosk.
+   On short screens fitLane() (js/stops3.js) adds .tight1, then .tight2, to open a lane between the text and the tower. ---- */
+.welcome.tight1 .wl-in{padding-top:.7rem}
+.welcome.tight1 .wl-title h1{font-size:clamp(3rem,6.1vw,5.6rem)}
+.welcome.tight1 .wl-title .tag{margin:.35rem 0 .45rem}
+.welcome.tight1 .teaser{margin-top:.6rem}
+.welcome.tight1 .tcap{display:none}
+.welcome.tight1 .wplane{width:clamp(125px,10vw,200px)}
+.welcome.tight1 .apwrap{bottom:-12px}
+.welcome.tight2 .psst{display:none}
 
 @font-face{font-family:'Noodle';font-weight:700;font-display:swap;src:url(../fonts/noodle.woff2) format('woff2')}
 

@@ -83,6 +83,11 @@ function nextStop(){return STOPS.find(s=>!st(s.id).best)||null;}
 /* ================= welcome screen ================= */
 const PUNS=['I find this very humerus.','Tibia honest, you have got this.','You are going to have a femur-nomenal time.','No bones about it: practice works.','Patella friend about this review.','Ulna-believable things are ahead.','This one is a real rib-tickler.','Stay calm and carry on. Carry-on luggage only.','You can count on your carpals.','Spine-tingling fun, now boarding.'];
 function bubble(host,x,y,text){$$('.punb',host).forEach(b=>b.remove());const b=h(`<div class="punb" role="status" style="left:${x}px;top:${y}px">${text}</div>`);host.append(b);say(text);setTimeout(()=>b.remove(),3600);}
+// Keeps a clear lane for the plane between the welcome text and the top of the control tower.
+function fitLane(){const w=$('#wl');if(!w)return;w.classList.remove('tight1','tight2');w.style.minHeight='';if(innerWidth<=900)return;
+  const short=()=>Math.max(...$$('.wl-title > *',w).filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().bottom))+$('.wplane',w).offsetHeight+28-$('.airport .beacon',w).getBoundingClientRect().top;
+  if(short()>0)w.classList.add('tight1');if(short()>0)w.classList.add('tight2');const n=short();if(n>0)w.style.minHeight=Math.ceil(w.offsetHeight+n)+'px';}
+let laneT=0;const laneSoon=()=>{cancelAnimationFrame(laneT);laneT=requestAnimationFrame(fitLane);};
 function renderWelcome(){const v=$('#v-home'),done=STOPS.filter(s=>st(s.id).best).length,name=S.name.trim(),back=!!name&&S.enteredAs===name;let pun=Math.random()*PUNS.length|0;
   v.innerHTML=`<section class="welcome" id="wl">
     <button class="sunb" aria-label="The sun. Tap it for a surprise">${ART.sun()}</button>
@@ -100,6 +105,7 @@ function renderWelcome(){const v=$('#v-home'),done=STOPS.filter(s=>st(s.id).best
       <label for="nm">Passenger name</label><input id="nm" value="${esc(S.name)}" autocomplete="off" maxlength="40" placeholder="Your name">
       <p class="kerr" id="kerr" role="alert" hidden>Type your name first so the kiosk can print your boarding pass.</p>
       <button class="btn go big" id="startb" type="submit">${ART.icon('plane')}<span>${back?'Enter the airport':'Print my boarding pass'}</span></button><div class="barcode" aria-hidden="true"></div></div></form></div></section>`;
+  fitLane();if(window.ResizeObserver)new ResizeObserver(laneSoon).observe($('.wl-title',v));
   const wl=$('#wl',v),pos=el=>{const a=el.getBoundingClientRect(),b=wl.getBoundingClientRect();return[a.left-b.left+a.width/2,a.bottom-b.top];};
   $('#nm',v).oninput=e=>{S.name=e.target.value;save();$('#kerr',v).hidden=true;$('#startb span',v).textContent=(S.name.trim()&&S.enteredAs===S.name.trim())?'Enter the airport':'Print my boarding pass';};
   $('#kiosk',v).onsubmit=e=>{e.preventDefault();if(!S.name.trim()){$('#kerr',v).hidden=false;const k=$('#kiosk',v);k.classList.remove('nope');void k.offsetWidth;k.classList.add('nope');SFX.wrong();$('#nm',v).focus();return;}enterAirport();};
@@ -210,6 +216,6 @@ function init(){applySet();$('#miles').textContent=S.miles.toLocaleString();
   $('#bSet').onclick=openSettings;$('#bPass').onclick=()=>{location.hash='passport';};$('#bHome').onclick=()=>{location.hash=S.name.trim()?'departures':'home';};
   $('#bBack').onclick=()=>{location.hash='departures';};$('#bHint').onclick=askHint;$('#bSay').onclick=()=>speak(RUN?RUN.prompt:'');
   setInterval(()=>{if(!document.hidden){S.ms+=5000;save();}},5000);
-  window.addEventListener('hashchange',route);document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#settings').classList.remove('on');$$('.marty').forEach(x=>x.remove());const sk=$('.gate .skip');if(sk)sk.click();}});
+  window.addEventListener('hashchange',route);window.addEventListener('resize',laneSoon);document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#settings').classList.remove('on');$$('.marty').forEach(x=>x.remove());const sk=$('.gate .skip');if(sk)sk.click();}});
   route();}
 document.addEventListener('DOMContentLoaded',init);
