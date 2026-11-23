@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bone Voyage: Skeletal System Unit Review</title>
+<meta name="description" content="A gamified Skeletal System unit review for Human Anatomy &amp; Physiology at Little Chute High School.">
+<meta name="theme-color" content="#0f2a52">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bone Voyage: Skeletal System Unit Review">
+<meta property="og:description" content="Fly through eleven stops, earn passport stamps, and get ready for the Skeletal System exam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="appbar">
+  <button class="brand" id="bHome" aria-label="Bone Voyage home"><span class="logo" id="logo"></span><span><b>Bone Voyage</b><small>Skeletal System unit review</small></span></button>
+  <span class="sp"></span>
+  <span class="miles" title="Miles earned" data-ic="plane"><span id="miles">0</span>&nbsp;mi</span>
+  <button class="ibtn" id="bPass" data-ic="passport">My passport</button>
+  <button class="ibtn" id="bSet" data-ic="gear" aria-label="Settings and accessibility">Settings</button>
+</header>
+<main id="main">
+  <div class="view" id="v-home"></div>
+  <div class="view" id="v-dep"></div>
+  <div class="view" id="v-stop">
+    <div class="stophead"><div class="in">
+      <button class="hbtn" id="bBack" data-ic="back">Departures</button>
+      <span class="code" id="stopCode"></span><h2 id="stopTitle"></h2><span class="dots" id="dots" role="img"></span>
+      <span style="flex:1"></span>
+      <button class="hbtn" id="bHint" data-ic="bulb">Ask Marty for a hint</button>
+    </div></div>
+    <div class="promptbar"><button class="say" id="bSay" data-ic="speaker" aria-label="Read the directions aloud"></button><p id="promptTxt"></p></div>
+    <div id="stopBody"></div>
+  </div>
+  <div class="view" id="v-passport"></div>
+</main>
+<div class="modal" id="settings"></div>
+<div class="sr" id="live" aria-live="polite"></div>
+<script src="js/core.js"></script>
+<script src="js/art.js"></script>
+<script src="js/stops1.js"></script>
+<script src="js/stops2.js"></script>
+<script src="js/stops3.js"></script>
+</body>
+</html>
